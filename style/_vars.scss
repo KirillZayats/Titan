@@ -1,1 +1,19 @@
 $color-button: #ccdfff;
+$color-background: #403F3D;
+$color-modal: #ccdfff;
+$color-button-modal: #ffffff;
+
+$checkpoint-desktop: 1440px;
+$checkpoint-laptop: 1024px;
+$checkpoint-tablet: 768px;
+$checkpoint-mobileL: 425px;
+$checkpoint-mobileM: 380px;
+$checkpoint-mobileS: 320px;
+
+$width-desktop: calc($checkpoint-desktop - 80px);
+$width-laptop: calc($checkpoint-laptop - 80px);
+$width-tablet: calc($checkpoint-tablet - 80px);
+
+$width-mobileL: calc($checkpoint-mobileL - 40px);
+$width-mobileM: calc($checkpoint-mobileM - 32px);
+$width-mobileS: calc($checkpoint-mobileS - 20px);

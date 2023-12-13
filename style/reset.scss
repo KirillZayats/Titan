@@ -1,40 +1,68 @@
 * {
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none; 
-    -webkit-tap-highlight-color: transparent;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-style: normal;
+  line-height: normal;
+  font-family: "Inter", sans-serif;
+
+  button,
+  input {
+    font-family: "Inter", sans-serif;
   }
-  
-  html {
-    font-style: normal;
-    line-height: normal;
-  
-    body {
-      width: 100%;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-  
-    body::-webkit-scrollbar {
-      display: none;
-    }
-  
-    li {
-      list-style: none;
-    }
-  
-    a {
-      display: inline-block;
-      text-decoration: none;
-    }
-  
-    a, button {
-      cursor: pointer;
-    }
+
+  body {
+    width: 100%;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
+
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  a {
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  a,
+  button {
+    cursor: pointer;
+  }
+
+  button,
+  a,
+  div,
+  li,
+  span,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  rect {
+    transition: all 0.3s ease-out;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+}
