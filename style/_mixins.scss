@@ -1,0 +1,30 @@
+@mixin width-container ($width) {
+    width: $width;
+    margin: 0 auto;
+}
+
+@mixin df-row {
+    display: flex;
+    flex-direction: row;
+}
+
+@mixin df-rev-row {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+@mixin df-column {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin df-rev-column {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+@mixin font($fw, $fs, $lh) {
+    font-weight: $fw;
+    font-size: $fs;
+    line-height: $lh;
+}

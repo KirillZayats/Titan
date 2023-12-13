@@ -1,0 +1,19 @@
+.main {
+    padding: 50px;
+    @include width-container(950px);
+    @include df-row;
+    gap: 50px;
+    .container {
+        @include df-column;
+        gap: 20px;
+        justify-content: center;
+
+        .container__button {
+            border-radius: 20px;
+            border: none;
+            width: 200px;
+            height: 45px;
+            background: $color-button;
+        }
+    }
+}
