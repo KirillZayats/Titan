@@ -1,9 +1,13 @@
 import "./style/style.scss";
 import DOM from "./js/helpers/dom";
 import { openModal, closeModal } from "./js/modal";
-import { colorBar, colorScatter, getLayout, nameLow, namePoint } from "./js/settingsPlotly";
+import { colorBackground, colorBar, colorPlan, colorScatter, getLayout, nameLow, namePoint } from "./js/settingsPlotly";
 
 {
+  const buttonPoint = DOM.searchById("buttonPoint");
+  const buttonPlan = DOM.searchById("buttonPlan");
+  const addData = DOM.searchById("addPoint");
+
   const createTrace = (arrayX, arrayY, type, name, color) => {
     return {
       x: [...arrayX],
@@ -18,11 +22,6 @@ import { colorBar, colorScatter, getLayout, nameLow, namePoint } from "./js/sett
       },
     };
   };
-
-  const buttonPoint = DOM.searchById("buttonPoint");
-  const buttonPlan = DOM.searchById("buttonPlan");
-  const addData = DOM.searchById("addPoint");
-
   let lastChoice;
   const nowDate = new Date();
   const getNowDate = (date, year = 0) => {
@@ -45,7 +44,7 @@ import { colorBar, colorScatter, getLayout, nameLow, namePoint } from "./js/sett
     [0, 0],
     "scatter",
     "Добыто (сутки)",
-    "blue"
+    colorPlan
   );
   data.push(plan);
   Plotly.newPlot("containerGraph", data, layout);
@@ -102,6 +101,7 @@ import { colorBar, colorScatter, getLayout, nameLow, namePoint } from "./js/sett
     for (let index = 1; index < arrayYDayCopy.length; index++) {
       arrayYDay.push(+arrayYDayCopy[index] + +arrayYDay[index - 1]);
     }
+    setRangeY(arrayYDay[arrayYDay.length - 1]);
   }
 
   const setValueDay = (value, date) => {
@@ -143,13 +143,20 @@ import { colorBar, colorScatter, getLayout, nameLow, namePoint } from "./js/sett
       );
       data.shift();
       data.unshift(plan);
-      layout.yaxis.range[1] = +value + 30;
+      setRangeY(value);
       Plotly.newPlot("containerGraph", data, layout);
     }
   };
 
+  const setRangeY = (size) => {
+    if (+size > +layout.yaxis.range[1]) {
+      layout.yaxis.range[1] = +size + 30;
+    }
+  }
+
   const getPoint = (event) => {
     let [size, time] = closeModal(event);
+    setRangeY(size);
     setValue(size, time);
   };
 
