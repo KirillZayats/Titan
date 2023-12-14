@@ -1,34 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-    rel="icon"
-    type="image/png"
-    sizes="32x32"
-    href="./resources/favicon/favicon-32x32.png"
-  >
-  <link
-    rel="icon"
-    type="image/png"
-    sizes="16x16"
-    href="./resources/favicon/favicon-16x16.png"
-  >
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./resources/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./resources/favicon/favicon-16x16.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
       rel="stylesheet"
-    >
-    <script src='https://cdn.plot.ly/plotly-2.27.0.min.js'></script>
+    />
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <title>Титан</title>
   </head>
   <body>
     <main class="main">
       <div class="container">
-        <button id="buttonPoint" class="container__button">Добавить точку на график</button>
-        <button id="buttonPlan" class="container__button">Установить план добычи</button>
+        <button id="buttonPoint" class="container__button">
+          Добавить точку на график
+        </button>
+        <button id="buttonPlan" class="container__button">
+          Установить план добычи
+        </button>
       </div>
       <div id="containerGraph" class="main__graph"></div>
       <div class="modal-bg"></div>
@@ -37,17 +41,19 @@
           <h3 class="modal__title">Заполните данные</h3>
           <div class="form form__point">
             <span class="form__title">Сколько дабыто за час (тыс.м)</span>
-            <input class="form__input" id="size" min="1" type="number">
+            <input class="form__input" id="size" min="1" type="number" />
           </div>
           <div class="form form__point">
             <span class="form__title">Установите время</span>
-            <input class="form__input" id="time" type="time">
+            <input class="form__input" id="time" type="time" />
           </div>
           <div class="form form__low">
             <span class="form__title">План добычи (тыс.м)</span>
-            <input class="form__input" id="allSize" name="plan" type="number">
+            <input class="form__input" id="allSize" name="plan" type="number" />
           </div>
-          <button class="modal__button" type="submit" id="addPoint">Добавить точку</button>
+          <button class="modal__button" type="submit" id="addPoint">
+            Добавить точку
+          </button>
         </form>
       </div>
     </main>

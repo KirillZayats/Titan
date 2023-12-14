@@ -1,17 +1,7 @@
 import "./style/style.scss";
 import DOM from "./js/helpers/dom";
 import { openModal, closeModal } from "./js/modal";
-import {
-  colorBackground,
-  colorBar,
-  colorPlan,
-  colorPrognos,
-  colorScatter,
-  config,
-  getLayout,
-  nameLow,
-  namePoint,
-} from "./js/settingsPlotly";
+import { nameLow, namePoint } from "./js/settingsPlotly";
 import { Grafic } from "./js/grafic";
 
 {
@@ -20,7 +10,7 @@ import { Grafic } from "./js/grafic";
   const addData = DOM.searchById("addPoint");
   const grafic = new Grafic();
   let lastChoice;
-  
+
   const getPoint = (event) => {
     let [size, time] = closeModal(event);
     grafic.setValue(size, time);

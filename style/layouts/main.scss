@@ -22,7 +22,6 @@
     }
 
     .container {
-
         @media screen and (min-width: $checkpoint-mobileS) {
             @include df-column;
             gap: 10px;
@@ -62,13 +61,13 @@
     #containerGraph {
         width: 100%;
         height: 80vh;
-        margin: 0; 
+        margin: 0;
         @media screen and (min-width: $checkpoint-mobileS) {
             height: 100vh;
         }
         @media screen and (min-width: $checkpoint-mobileL) {
             height: 90vh;
-        }     
+        }
     }
 
     .modal-bg {
@@ -120,7 +119,7 @@
         margin: 16px;
         @include df-column;
         gap: 20px;
-    
+
         @media screen and (min-width: $checkpoint-mobileS) {
             max-width: 290px;
             padding: 10px;
@@ -129,7 +128,6 @@
         @media screen and (min-width: $checkpoint-mobileM) {
             max-width: 320px;
             padding: 20px;
-
         }
         @media screen and (min-width: $checkpoint-mobileL) {
             max-width: 360px;
@@ -139,7 +137,6 @@
         @media screen and (min-width: $checkpoint-tablet) {
             max-width: 450px;
             padding: 25px 60px 25px 25px;
-
         }
 
         .modal__title {
@@ -153,7 +150,7 @@
             align-items: center;
 
             .form__title {
-                @include font(400, 16px, 125%)
+                @include font(400, 16px, 125%);
             }
 
             .form__input {

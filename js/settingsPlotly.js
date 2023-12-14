@@ -5,7 +5,8 @@ const colorBar = "#76cc54";
 const colorScatter = "#8b00ff";
 const colorPlan = "blue";
 const colorBackground = "#ccdfff";
-const colorPrognos = "orange";
+const colorGoodPrognos = "green";
+const colorBadPrognos = "red";
 const colorText = "#000";
 
 const getLayout = (getNowDate, nowDate) => {
@@ -43,7 +44,7 @@ const getLayout = (getNowDate, nowDate) => {
           color: colorText,
         },
       },
-    }
+    },
   };
 };
 
@@ -56,5 +57,6 @@ export {
   colorPlan,
   colorBackground,
   config,
-  colorPrognos,
+  colorGoodPrognos,
+  colorBadPrognos,
 };

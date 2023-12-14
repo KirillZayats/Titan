@@ -1,7 +1,8 @@
 import {
+  colorBadPrognos,
   colorBar,
+  colorGoodPrognos,
   colorPlan,
-  colorPrognos,
   colorScatter,
   config,
   getLayout,
@@ -57,6 +58,12 @@ class Grafic {
       );
       this.data.shift();
       this.data.unshift(this.plan);
+      if (this.data.length === 4) {
+        this.data[3].marker.color =
+          +this.plan.y[1] > +this.data[3].y[1]
+            ? colorBadPrognos
+            : colorGoodPrognos;
+      }
       Plotly.newPlot("containerGraph", this.data, this.layout, config);
     }
   };
@@ -120,15 +127,19 @@ class Grafic {
         (+partsOld[0] === +partsNew[0] &&
           +partsOld[partsOld.length - 1] > +partsNew[partsNew.length - 1])
       ) {
-        this.arrayXDay.splice(index, 0, `${this.#getNowDate(this.nowDate)} ${date}`);
+        this.arrayXDay.splice(
+          index,
+          0,
+          `${this.#getNowDate(this.nowDate)} ${date}`
+        );
         this.arrayYDayCopy.splice(index, 0, value);
         index = this.arrayXDay.length;
         isStatusSplice = true;
       }
     }
     if (!isStatusSplice) {
-        this.arrayXDay.push(`${this.#getNowDate(this.nowDate)} ${date}`);
-        this.arrayYDayCopy.push(value);
+      this.arrayXDay.push(`${this.#getNowDate(this.nowDate)} ${date}`);
+      this.arrayYDayCopy.push(value);
     }
   };
 
@@ -136,7 +147,9 @@ class Grafic {
     this.arrayYDay.length = 0;
     this.arrayYDay.push(this.arrayYDayCopy[0]);
     for (let index = 1; index < this.arrayYDayCopy.length; index++) {
-        this.arrayYDay.push(+this.arrayYDayCopy[index] + +this.arrayYDay[index - 1]);
+      this.arrayYDay.push(
+        +this.arrayYDayCopy[index] + +this.arrayYDay[index - 1]
+      );
     }
   };
 
@@ -171,6 +184,7 @@ class Grafic {
   };
 
   #setPrognos = () => {
+    let leftSize;
     if (this.arrayXDay.length >= 2) {
       const lastIndex = this.arrayXDay.length - 1;
       const hours = this.#getDifferenceHours(
@@ -184,7 +198,7 @@ class Grafic {
         Date.parse(this.arrayXDay[lastIndex]),
         Date.parse(leftDate)
       );
-      const leftSize = +this.arrayYDay[lastIndex] + sizeHour * leftHours;
+      leftSize = +this.arrayYDay[lastIndex] + sizeHour * leftHours;
       this.#fillArraysPrognos(lastIndex, leftDate, leftSize);
     }
     return this.#createTrace(
@@ -192,7 +206,7 @@ class Grafic {
       this.arrayYPrognos,
       "dot",
       "Прогноз добычи",
-      colorPrognos,
+      leftSize > this.data[0].y[1] ? colorGoodPrognos : colorBadPrognos,
       this.arrayYPrognos
     );
   };
