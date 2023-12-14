@@ -1,7 +1,7 @@
 import "./style/style.scss";
 import DOM from "./js/helpers/dom";
 import { openModal, closeModal } from "./js/modal";
-import { colorBackground, colorBar, colorPlan, colorScatter, getLayout, nameLow, namePoint } from "./js/settingsPlotly";
+import { colorBackground, colorBar, colorPlan, colorScatter, config, getLayout, nameLow, namePoint } from "./js/settingsPlotly";
 
 {
   const buttonPoint = DOM.searchById("buttonPoint");
@@ -47,7 +47,7 @@ import { colorBackground, colorBar, colorPlan, colorScatter, getLayout, nameLow,
     colorPlan
   );
   data.push(plan);
-  Plotly.newPlot("containerGraph", data, layout);
+  Plotly.newPlot("containerGraph", data, layout, config);
 
   buttonPoint.addEventListener("click", () => {
     lastChoice = namePoint;
@@ -125,7 +125,7 @@ import { colorBackground, colorBar, colorPlan, colorScatter, getLayout, nameLow,
     if (value && date && value > 0) {
       data.splice(1, 1, setValueHour(value, date));
       data.splice(2, 1, setValueDay(value, date));
-      Plotly.update("containerGraph", data, layout);
+      Plotly.update("containerGraph", data, layout, config);
     }
   };
 
@@ -144,12 +144,14 @@ import { colorBackground, colorBar, colorPlan, colorScatter, getLayout, nameLow,
       data.shift();
       data.unshift(plan);
       setRangeY(value);
-      Plotly.newPlot("containerGraph", data, layout);
+      Plotly.newPlot("containerGraph", data, layout, config);
     }
   };
 
   const setRangeY = (size) => {
-    if (+size > +layout.yaxis.range[1]) {
+    console.log(size);
+    console.log(+layout.yaxis.range[1]);
+    if (+size >= +layout.yaxis.range[1]) {
       layout.yaxis.range[1] = +size + 30;
     }
   }

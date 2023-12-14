@@ -1,38 +1,72 @@
 .main {
-    padding: 50px 0;
     margin: 0 auto;
-    width: 100%;
-    @include df-rev-row;
-    gap: 30px;
-    background: red;
     justify-content: center;
+    max-width: $width-desktop;
+
     @media screen and (min-width: $checkpoint-mobileS) {
-        max-width: $width-desktop;
-    }
-    @media screen and (min-width: $checkpoint-mobileM) {
+        width: calc(100% - 30px);
+        @include df-rev-column;
+        padding: 15px;
     }
     @media screen and (min-width: $checkpoint-mobileL) {
+        width: calc(100% - 40px);
+        padding: 20px;
     }
-    @media screen and (min-width: $checkpoint-desktop) {
+    @media screen and (min-width: $checkpoint-tablet) {
+        width: calc(100% - 80px);
+        padding: 20px 40px;
+    }
+    @media screen and (min-width: $checkpoint-laptop) {
+        @include df-row;
+        gap: 30px;
     }
 
     .container {
-        @include df-column;
-        gap: 20px;
-        justify-content: center;
 
+        @media screen and (min-width: $checkpoint-mobileS) {
+            @include df-column;
+            gap: 10px;
+            justify-content: space-between;
+        }
+        @media screen and (min-width: $checkpoint-mobileM) {
+            @include df-row;
+            gap: 20px;
+            justify-content: space-around;
+        }
+
+        @media screen and (min-width: $checkpoint-laptop) {
+            @include df-column;
+            gap: 20px;
+            justify-content: center;
+        }
         .container__button {
+            @media screen and (min-width: $checkpoint-mobileS) {
+                width: 100%;
+
+            }
+            @media screen and (min-width: $checkpoint-mobileM) {
+                width: 200px;
+
+            }
             border-radius: 10px;
-            width: 200px;
             height: 45px;
             background: $color-button;
         }
     }
 
     #containerGraph {
-        width: 700px;
-        height: 500px;        
+        width: 100%;
+        height: 80vh;
         margin: 0; 
+        @media screen and (min-width: $checkpoint-mobileS) {
+            height: 100vh;
+        }
+        @media screen and (min-width: $checkpoint-mobileL) {
+            height: 90vh;
+        }
+        // @media screen and (min-width: $checkpoint-laptop) {
+        //     height: 100vh;
+        // }       
     }
 
     .modal-bg {
@@ -77,27 +111,33 @@
     }
 
     .modal {
-        border-radius: 40px;
         position: absolute;
         width: 100%;
         background: $color-modal;
         z-index: 10;
-        padding: 25px 60px 25px 25px;
         margin: 16px;
         @include df-column;
         gap: 20px;
     
         @media screen and (min-width: $checkpoint-mobileS) {
-            max-width: 270px;
+            max-width: 290px;
+            padding: 10px;
+            border-radius: 20px;
         }
         @media screen and (min-width: $checkpoint-mobileM) {
-            max-width: 310px;
+            max-width: 320px;
+            padding: 20px;
+
         }
         @media screen and (min-width: $checkpoint-mobileL) {
-            max-width: 350px;
+            max-width: 360px;
+            padding: 20px;
+            border-radius: 40px;
         }
         @media screen and (min-width: $checkpoint-tablet) {
             max-width: 450px;
+            padding: 25px 60px 25px 25px;
+
         }
 
         .modal__title {
