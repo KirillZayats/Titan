@@ -27,7 +27,7 @@ class Grafic {
       ],
       [0, 0],
       "scatter",
-      "Добыто (сутки)",
+      "План добычи",
       colorPlan
     );
     this.data.push(this.plan);
