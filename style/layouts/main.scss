@@ -42,15 +42,20 @@
         .container__button {
             @media screen and (min-width: $checkpoint-mobileS) {
                 width: 100%;
-
             }
             @media screen and (min-width: $checkpoint-mobileM) {
                 width: 200px;
-
             }
+            border: 1px solid $color-border;
             border-radius: 10px;
             height: 45px;
             background: $color-button;
+
+            @media (hover: hover) and (pointer: fine) {
+                &:hover {
+                    background: $color-button-hover;
+                }
+            }
         }
     }
 
@@ -63,10 +68,7 @@
         }
         @media screen and (min-width: $checkpoint-mobileL) {
             height: 90vh;
-        }
-        // @media screen and (min-width: $checkpoint-laptop) {
-        //     height: 100vh;
-        // }       
+        }     
     }
 
     .modal-bg {
@@ -167,11 +169,18 @@
         }
 
         .modal__button {
+            border: 1px solid $color-border;
             width: 250px;
             height: 45px;
             border-radius: 10px;
             background: $color-button-modal;
             @include font(600, 16px, 150%);
+
+            @media (hover: hover) and (pointer: fine) {
+                &:hover {
+                    background: $color-button-hover;
+                }
+            }
         }
     }
 }

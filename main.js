@@ -1,23 +1,41 @@
 import "./style/style.scss";
 import DOM from "./js/helpers/dom";
 import { openModal, closeModal } from "./js/modal";
-import { colorBackground, colorBar, colorPlan, colorScatter, config, getLayout, nameLow, namePoint } from "./js/settingsPlotly";
+import {
+  colorBackground,
+  colorBar,
+  colorPlan,
+  colorPrognos,
+  colorScatter,
+  config,
+  getLayout,
+  nameLow,
+  namePoint,
+} from "./js/settingsPlotly";
 
 {
   const buttonPoint = DOM.searchById("buttonPoint");
   const buttonPlan = DOM.searchById("buttonPlan");
   const addData = DOM.searchById("addPoint");
 
-  const createTrace = (arrayX, arrayY, type, name, color) => {
+  const createTrace = (arrayX, arrayY, type, name, color, text = '') => {
     return {
       x: [...arrayX],
       y: [...arrayY],
       name: name,
       type: type,
+      mode: 'lines+text',
+      textposition: 'top left',
+      textfont: {
+        family: 'Inter, monospace',
+        size: 14,
+      },
+      text: text && text.length > 1 ? [`${text[0].toFixed(1)}`, `${text[1].toFixed(1)}`] : '',
       marker: {
         color: color,
       },
       line: {
+        dash: type,
         width: 3,
       },
     };
@@ -34,6 +52,8 @@ import { colorBackground, colorBar, colorPlan, colorScatter, config, getLayout, 
   let arrayXDay = [];
   let arrayYDay = [];
   let arrayYDayCopy = [];
+  let arrayXPrognos = [];
+  let arrayYPrognos = [];
   let data = [];
   let layout = getLayout(getNowDate, nowDate);
   let plan = createTrace(
@@ -93,7 +113,7 @@ import { colorBackground, colorBar, colorPlan, colorScatter, config, getLayout, 
       arrayXDay.push(`${getNowDate(nowDate)} ${date}`);
       arrayYDayCopy.push(value);
     }
-  }
+  };
 
   const setNormalValueDay = () => {
     arrayYDay.length = 0;
@@ -101,8 +121,7 @@ import { colorBackground, colorBar, colorPlan, colorScatter, config, getLayout, 
     for (let index = 1; index < arrayYDayCopy.length; index++) {
       arrayYDay.push(+arrayYDayCopy[index] + +arrayYDay[index - 1]);
     }
-    setRangeY(arrayYDay[arrayYDay.length - 1]);
-  }
+  };
 
   const setValueDay = (value, date) => {
     if (arrayXDay.length === 0) {
@@ -125,6 +144,8 @@ import { colorBackground, colorBar, colorPlan, colorScatter, config, getLayout, 
     if (value && date && value > 0) {
       data.splice(1, 1, setValueHour(value, date));
       data.splice(2, 1, setValueDay(value, date));
+      const trace = setPrognos();
+      trace && data.splice(3, 1, trace);
       Plotly.update("containerGraph", data, layout, config);
     }
   };
@@ -143,22 +164,65 @@ import { colorBackground, colorBar, colorPlan, colorScatter, config, getLayout, 
       );
       data.shift();
       data.unshift(plan);
-      setRangeY(value);
       Plotly.newPlot("containerGraph", data, layout, config);
     }
   };
 
-  const setRangeY = (size) => {
-    console.log(size);
-    console.log(+layout.yaxis.range[1]);
-    if (+size >= +layout.yaxis.range[1]) {
+  const setRangeY = (size, defaultValue = true) => {
+    console.log(data[0].y[0]);
+    if (defaultValue && +size >= +layout.yaxis.range[1]) {
       layout.yaxis.range[1] = +size + 30;
+    } else if (!defaultValue) {
+      if (+data[0].y[0] < +size) {
+        layout.yaxis.range[1] = +size + 30;
+      } else {
+        layout.yaxis.range[1] = +size + 30;
+      }
     }
-  }
+  };
+
+  const getDifferenceHours = (startDate, endDate) => {
+    return (+endDate - +startDate) / 60 / 60 / 1000;
+  };
+
+  const fillArraysPrognos = (lastIndex, leftDate, leftSize) => {
+    arrayXPrognos.length = 0;
+    arrayYPrognos.length = 0;
+    arrayXPrognos.push(arrayXDay[lastIndex]);
+    arrayXPrognos.push(leftDate);
+    arrayYPrognos.push(arrayYDay[lastIndex]);
+    arrayYPrognos.push(leftSize);
+  };
+
+  const setPrognos = () => {
+    if (arrayXDay.length >= 2) {
+      const lastIndex = arrayXDay.length - 1;
+      const hours = getDifferenceHours(
+        Date.parse(arrayXDay[lastIndex - 1]),
+        Date.parse(arrayXDay[lastIndex])
+      );
+      const size = +arrayYDay[lastIndex] - +arrayYDay[lastIndex - 1];
+      const sizeHour = size / hours;
+      const leftDate = `${getNowDate(nowDate)} 23:59:59`;
+      const leftHours = getDifferenceHours(
+        Date.parse(arrayXDay[lastIndex]),
+        Date.parse(leftDate)
+      );
+      const leftSize = +arrayYDay[lastIndex] + sizeHour * leftHours;
+      fillArraysPrognos(lastIndex, leftDate, leftSize);
+    }
+    return createTrace(
+      arrayXPrognos,
+      arrayYPrognos,
+      "dot",
+      "Прогноз добычи",
+      colorPrognos,
+      arrayYPrognos
+    );
+  };
 
   const getPoint = (event) => {
     let [size, time] = closeModal(event);
-    setRangeY(size);
     setValue(size, time);
   };
 
